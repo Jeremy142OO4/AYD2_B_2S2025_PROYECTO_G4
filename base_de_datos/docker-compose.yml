@@ -1,0 +1,17 @@
+services:
+  sqlserver:
+    build: .
+    container_name: sqlserver_ayd2
+    ports:
+      - "${SQL_PORT}:1433"
+    env_file:
+      - .env
+    environment:
+      ACCEPT_EULA: ${ACCEPT_EULA}
+      SA_PASSWORD: ${SA_PASSWORD}
+      MSSQL_PID: ${MSSQL_PID}
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+volumes:
+  sqlserverdata:

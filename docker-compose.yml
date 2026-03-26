@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: ayd2_backend:latest
+    container_name: go_backend
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./backend/.env.backend
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: ayd2_frontend:latest
+    container_name: react_frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://backend:4000
+    depends_on:
+      - backend
+    restart: always
